@@ -1,20 +1,16 @@
 const mongoose = require("mongoose");
 
 const productSchema = mongoose.Schema({
-  fullname: String,
-  email: String,
-  password: String,
-  cart: {
-    type: Array,
-    default: [],
-  },
-  isadmin: Boolean,
-  orders: {
-    type: Array,
-    default: [],
-  },
-  contact: Number,
   image: String,
+  name: String,
+  price: Number,
+  discount: {
+    type: Number,
+    default: 0,
+  },
+  bgcolor: String,
+  panelcolor: String,
+  textcolor: String,
 });
 
-module.exports = mongoose.model("user", productSchema);
+module.exports = mongoose.model("product", productSchema);
