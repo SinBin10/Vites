@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 // they are only printed when environement variable is set
 // development is the namespace
 const dbgr = require("debug")("development: mongoose");
+//used for changing configurations in between production and development
+const config = require("config");
 
 //might give error some times so we have to do error handling
 mongoose
-  .connect("mongodb://127.0.0.1:27017/vitesdb")
+  .connect(`${config.get("MONGODB_URI")}/vitesdb`)
   .then(function () {
     dbgr("connected");
   })

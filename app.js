@@ -15,8 +15,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 app.use("/users", usersRouter);
-app.get("/products", productsRouter);
-app.get("/owners", ownersRouter);
+app.use("/products", productsRouter);
+app.use("/owners", ownersRouter);
 
 //starting server
 app.listen(3000);
