@@ -9,6 +9,7 @@ const ownersRouter = require("./routes/ownersRouter");
 const userModel = require("./models/user-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { log } = require("console");
 
 //middlewares
 app.set("view engine", "ejs");
@@ -39,6 +40,7 @@ app.post("/create", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
+  console.log(req.cookies.token);
   if (req.cookies.token === "" || req.cookies.token === undefined) {
     return res.send("You must login first !!");
   }
@@ -46,7 +48,7 @@ app.get("/products", (req, res) => {
     if (err) {
       return res.send("Something went wrong !");
     }
-    res.render("products.ejs");
+    res.render("products.ejs", { decoded });
   });
 });
 
