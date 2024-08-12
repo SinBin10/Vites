@@ -8,26 +8,30 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
-    <div class="h-full w-full bg-gray-300 flex items-center">
-      <div class="flex flex-col items-start mx-auto w-96">
+    <div class="h-full flex justify-center items-center">
+      <form
+        action="/"
+        method="post"
+        class="flex flex-col items-start justify-center w-[30rem] bg-gray-300 h-full px-10"
+      >
         <h1 class="text-4xl font-medium">
           welcome to <span class="text-sky-500 font-bold">Vites</span>
         </h1>
         <h2 class="text-xl font-semibold mb-4">create your account</h2>
         <input
-          class="mb-2 p-3 w-full"
+          class="mb-2 p-3 w-full outline-blue-500"
           type="text"
           placeholder="FullName"
           name="fullname"
         />
         <input
-          class="mb-2 p-3 w-full"
+          class="mb-2 p-3 w-full outline-blue-500"
           type="email"
           placeholder="Email"
           name="email"
         />
         <input
-          class="mb-2 p-3 w-full"
+          class="mb-2 p-3 w-full outline-blue-500"
           type="password"
           placeholder="Password"
           name="password"
@@ -37,7 +41,30 @@
           type="submit"
           value="Create My Account"
         />
+      </form>
+      <div class="h-full w-40 flex justify-center items-center">
+        <div class="bg-blue-600 px-4 py-3 text-white rounded-full">or</div>
       </div>
+      <form class="w-[28rem] px-10" action="" method="post">
+        <h2 class="text-xl font-semibold mb-4">Login your account</h2>
+        <input
+          class="mb-2 p-3 w-full bg-gray-100 outline-blue-500"
+          type="email"
+          name="email"
+          placeholder="Email"
+        />
+        <input
+          class="mb-2 p-3 w-full bg-gray-100 outline-blue-500"
+          type="password"
+          name="password"
+          placeholder="Password"
+        />
+        <input
+          class="bg-blue-500 text-white px-6 py-2 rounded-3xl mt-4"
+          type="submit"
+          value="Login"
+        />
+      </form>
     </div>
   </body>
 </html>
