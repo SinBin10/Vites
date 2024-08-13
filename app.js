@@ -94,10 +94,10 @@ app.get("/products", async (req, res) => {
       return res.send("Something went wrong !");
     }
     let owner = await ownerModel.findOne({ _id: decoded.ownerid });
-    // owner.products.push(product);
+    await owner.populate("products");
     // await owner.save();
     let productsarray = owner.products;
-    // console.log(productsarray);
+    console.log(productsarray);
     res.render("products.ejs", { decoded, productsarray });
   });
 });
@@ -106,8 +106,29 @@ app.get("/addproduct", (req, res) => {
   res.render("addproduct.ejs");
 });
 
-app.post("/addproduct", (req, res) => {
-  res.redirect("/products");
+app.post("/addproduct", async (req, res) => {
+  let { productimage, productname, price, bgcolor, panelcolor, textcolor } =
+    req.body;
+  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+    if (err) {
+      return res.send("Something went wrong !");
+    }
+    let newproduct = await productModel.create({
+      image: productimage,
+      name: productname,
+      price,
+      bgcolor,
+      panelcolor,
+      textcolor,
+    });
+    let owner = await ownerModel.findOne({ _id: decoded.ownerid });
+    // console.log(owner);
+    owner.products.push(newproduct._id);
+    await owner.save();
+    // let productsarray = owner.products;
+    // console.log(productsarray);
+    res.redirect("/products");
+  });
 });
 
 //app.use("/users", usersRouter);

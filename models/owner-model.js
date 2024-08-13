@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const productModel = require("./product-model");
 
 const ownerSchema = mongoose.Schema({
   fullname: {
@@ -8,10 +9,12 @@ const ownerSchema = mongoose.Schema({
   },
   email: String,
   password: String,
-  products: {
-    type: Array,
-    default: [],
-  },
+  products: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "product",
+    },
+  ],
   picture: String,
   gstin: String,
 });
