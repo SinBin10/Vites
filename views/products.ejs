@@ -20,7 +20,14 @@
     <div class="main flex m-9">
       <div class="sidebar w-80 h-full"></div>
       <div class="products flex flex-wrap w-[1096px]">
-        <% if(decoded.isadmin === true) { productsarray.map((product)=>{ %>
+        <% if(decoded.isadmin === true) { %>
+        <a
+          href="/addproduct"
+          class="flex justify-center items-center mr-10 mb-10 w-[14.5rem] bg-gray-200"
+        >
+          <div class="text-6xl">+</div>
+        </a>
+        <% productsarray.map((product)=>{ %>
         <div class="mr-10 mb-10">
           <div class="h-60 p-4 flex items-center bg-[#fad1be]">
             <img src="/images/image 80.png" alt="" />
@@ -30,9 +37,15 @@
               <h1 class="text-[#6e4a3a]">Clinge Bag</h1>
               <h2 class="text-[#6e4a3a]">Rs. 1200</h2>
             </div>
-            <a href="">
-              <div class="bg-white px-2 text-2xl rounded-full">+</div>
-            </a>
+            <div class="flex flex-col">
+              <a
+                class="bg-white px-2 border-b border-black text-blue-700"
+                href=""
+              >
+                Edit
+              </a>
+              <a class="bg-white px-2 text-red-700" href=""> Delete </a>
+            </div>
           </div>
         </div>
         <%})%><% } else { %>

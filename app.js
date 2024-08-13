@@ -102,6 +102,14 @@ app.get("/products", async (req, res) => {
   });
 });
 
+app.get("/addproduct", (req, res) => {
+  res.render("addproduct.ejs");
+});
+
+app.post("/addproduct", (req, res) => {
+  res.redirect("/products");
+});
+
 //app.use("/users", usersRouter);
 //app.use("/products", productsRouter);
 //app.use("/owners", ownersRouter);
