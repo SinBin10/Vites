@@ -20,9 +20,22 @@
     <div class="main flex m-9">
       <div class="sidebar w-80 h-full"></div>
       <div class="products flex flex-wrap w-[1096px]">
-        <% if(decoded.isadmin === true) { %>
-        <h1>I am admin guysss</h1>
-        <% } else { %>
+        <% if(decoded.isadmin === true) { productsarray.map((product)=>{ %>
+        <div class="mr-10 mb-10">
+          <div class="h-60 p-4 flex items-center bg-[#fad1be]">
+            <img src="/images/image 80.png" alt="" />
+          </div>
+          <div class="flex justify-between items-center px-4 py-2 bg-[#e59773]">
+            <div>
+              <h1 class="text-[#6e4a3a]">Clinge Bag</h1>
+              <h2 class="text-[#6e4a3a]">Rs. 1200</h2>
+            </div>
+            <a href="">
+              <div class="bg-white px-2 text-2xl rounded-full">+</div>
+            </a>
+          </div>
+        </div>
+        <%})%><% } else { %>
         <h1>I am a user</h1>
         <% } %>
         <!-- <div class="mr-10 mb-10">

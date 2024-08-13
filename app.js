@@ -78,7 +78,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/products", async (req, res) => {
-  // await productModel.create({
+  // let product = await productModel.create({
   //   image: "/images/image 80.png",
   //   name: "Clinge Bag",
   //   price: 1200,
@@ -86,21 +86,25 @@ app.get("/products", async (req, res) => {
   //   panelcolor: "bg-[#e59773]",
   //   textcolor: "text-[#6e4a3a]",
   // });
-  // console.log(req.cookies.token);
   if (req.cookies.token === "" || req.cookies.token === undefined) {
     return res.send("You must login first !!");
   }
-  jwt.verify(req.cookies.token, "shhhhhhh", (err, decoded) => {
+  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
     if (err) {
       return res.send("Something went wrong !");
     }
-    res.render("products.ejs", { decoded });
+    let owner = await ownerModel.findOne({ _id: decoded.ownerid });
+    // owner.products.push(product);
+    // await owner.save();
+    let productsarray = owner.products;
+    // console.log(productsarray);
+    res.render("products.ejs", { decoded, productsarray });
   });
 });
 
-app.use("/users", usersRouter);
-app.use("/products", productsRouter);
-app.use("/owners", ownersRouter);
+//app.use("/users", usersRouter);
+//app.use("/products", productsRouter);
+//app.use("/owners", ownersRouter);
 
 //starting server
 app.listen(3000);
