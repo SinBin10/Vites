@@ -57,6 +57,26 @@ app.post("/create", (req, res) => {
   });
 });
 
+app.post("/login", async (req, res) => {
+  let { email } = req.body;
+  let owner = await ownerModel.findOne({ email });
+  if (owner === null) {
+    let user = await userModel.findOne({ email });
+    let token = jwt.sign(
+      { userid: user._id, email: user.email, isadmin: false },
+      "shhhhhhh"
+    );
+    res.cookie("token", token);
+  } else {
+    let token = jwt.sign(
+      { ownerid: owner._id, email: owner.email, isadmin: true },
+      "shhhhhhh"
+    );
+    res.cookie("token", token);
+  }
+  res.redirect("/products");
+});
+
 app.get("/products", async (req, res) => {
   // await productModel.create({
   //   image: "/images/image 80.png",
