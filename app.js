@@ -93,11 +93,10 @@ app.get("/products", async (req, res) => {
     if (err) {
       return res.send("Something went wrong !");
     }
-    let owner = await ownerModel.findOne({ _id: decoded.ownerid });
+    let owner = await ownerModel.findOne({ _id: "66bb673ac37f8ea20dc68ea5" });
     await owner.populate("products");
     // await owner.save();
     let productsarray = owner.products;
-    console.log(productsarray);
     res.render("products.ejs", { decoded, productsarray });
   });
 });
