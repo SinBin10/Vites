@@ -7,9 +7,10 @@ const usersRouter = require("./routes/usersRouter");
 const productsRouter = require("./routes/productsRouter");
 const ownersRouter = require("./routes/ownersRouter");
 const userModel = require("./models/user-model");
+const productModel = require("./models/product-model");
+const ownerModel = require("./models/owner-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { log } = require("console");
 
 //middlewares
 app.set("view engine", "ejs");
@@ -27,20 +28,45 @@ app.post("/create", (req, res) => {
   let { fullname, email, password } = req.body;
   bcrypt.genSalt(10, (err, salt) => {
     bcrypt.hash(password, salt, async (err, hash) => {
-      let user = await userModel.create({
-        fullname,
-        email,
-        password: hash,
-      });
-      let token = jwt.sign({ userid: user._id, email: user.email }, "shhhhhhh");
-      res.cookie("token", token);
+      let owner = await ownerModel.find({});
+      if (owner.length === 0) {
+        let owner = await ownerModel.create({
+          fullname,
+          email,
+          password: hash,
+        });
+        let token = jwt.sign(
+          { ownerid: owner._id, email: owner.email, isadmin: true },
+          "shhhhhhh"
+        );
+        res.cookie("token", token);
+      } else {
+        let user = await userModel.create({
+          fullname,
+          email,
+          password: hash,
+        });
+        let token = jwt.sign(
+          { userid: user._id, email: user.email, isadmin: false },
+          "shhhhhhh"
+        );
+        res.cookie("token", token);
+      }
       res.redirect("/products");
     });
   });
 });
 
-app.get("/products", (req, res) => {
-  console.log(req.cookies.token);
+app.get("/products", async (req, res) => {
+  // await productModel.create({
+  //   image: "/images/image 80.png",
+  //   name: "Clinge Bag",
+  //   price: 1200,
+  //   bgcolor: "bg-[#fad1be]",
+  //   panelcolor: "bg-[#e59773]",
+  //   textcolor: "text-[#6e4a3a]",
+  // });
+  // console.log(req.cookies.token);
   if (req.cookies.token === "" || req.cookies.token === undefined) {
     return res.send("You must login first !!");
   }
