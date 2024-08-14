@@ -131,7 +131,7 @@ app.post("/addproduct", async (req, res) => {
 });
 
 app.get("/cart/:productid", (req, res) => {
-  res.send(req.params);
+  res.render("cart.ejs");
 });
 
 //app.use("/users", usersRouter);

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/index.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <navbar class="flex justify-between px-6 py-4 border-black border-b-[1px]">
+      <h1 class="text-4xl">Cart</h1>
+      <ul class="flex items-center">
+        <li class="mx-4"><a href="/">Home</a></li>
+        <li class="ml-4 mr-28"><a href="/products">Products</a></li>
+        <li class="mr-4"><a href="/cart">Cart</a></li>
+        <li class="mx-4"><a href="/account">My account</a></li>
+      </ul>
+    </navbar>
+    <div class="mx-10 my-6">
+      <div class="w-[29rem] h-[23.5rem]">
+        <div class="h-full flex justify-center items-center bg-[#fad1be]">
+          <img
+            class="h-[16.5rem]"
+            src="/images/image 80.png"
+            alt="clinge bag image"
+          />
+        </div>
+        <div class="justify-between items-center px-4 py-2 bg-[#e59773]">
+          <div class="flex justify-between py-2">
+            <h1 class="text-[#6e4a3a] text-2xl">Clinge Bag</h1>
+            <div class="flex items-center">
+              <a class="mr-2" href="/increaseitem">
+                <div class="bg-white px-2 rounded-full">+</div>
+              </a>
+              <div class="bg-white px-2">01</div>
+              <a class="ml-2" href="/reduceitem">
+                <div class="bg-white px-[10px] rounded-full">-</div>
+              </a>
+            </div>
+          </div>
+          <div class="flex justify-between items-center">
+            <h2>Net Total</h2>
+            <h2 class="mr-10">Rs. 1200</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
