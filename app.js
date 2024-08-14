@@ -130,6 +130,10 @@ app.post("/addproduct", async (req, res) => {
   });
 });
 
+app.get("/cart/:productid", (req, res) => {
+  res.send(req.params);
+});
+
 //app.use("/users", usersRouter);
 //app.use("/products", productsRouter);
 //app.use("/owners", ownersRouter);
