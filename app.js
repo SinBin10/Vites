@@ -131,7 +131,17 @@ app.post("/addproduct", async (req, res) => {
 });
 
 app.get("/cart/:productid", (req, res) => {
-  res.render("cart.ejs");
+  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+    if (err) {
+      res.send("Something went wrong...");
+    } else {
+      let user = await userModel.findOne({ _id: decoded.userid });
+      user.cart.push(req.params.productid);
+      await user.save;
+      await user.populate("cart");
+      res.render("cart.ejs", { user });
+    }
+  });
 });
 
 //app.use("/users", usersRouter);
