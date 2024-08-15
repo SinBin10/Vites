@@ -12,6 +12,8 @@ const ownerModel = require("./models/owner-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { name } = require("ejs");
+require("dotenv").config();
+const secretKey = process.env.SECRET_KEY;
 
 //middlewares
 app.set("view engine", "ejs");
@@ -38,7 +40,7 @@ app.post("/create", (req, res) => {
         });
         let token = jwt.sign(
           { ownerid: owner._id, email: owner.email, isadmin: true },
-          "shhhhhhh"
+          secretKey
         );
         res.cookie("token", token);
       } else {
@@ -49,7 +51,7 @@ app.post("/create", (req, res) => {
         });
         let token = jwt.sign(
           { userid: user._id, email: user.email, isadmin: false },
-          "shhhhhhh"
+          secretKey
         );
         res.cookie("token", token);
       }
@@ -72,7 +74,7 @@ app.post("/login", async (req, res) => {
         } else {
           let token = jwt.sign(
             { userid: user._id, email: user.email, isadmin: false },
-            "shhhhhhh"
+            secretKey
           );
           res.cookie("token", token);
           res.redirect("/products");
@@ -86,7 +88,7 @@ app.post("/login", async (req, res) => {
       } else {
         let token = jwt.sign(
           { ownerid: owner._id, email: owner.email, isadmin: true },
-          "shhhhhhh"
+          secretKey
         );
         res.cookie("token", token);
         res.redirect("/products");
@@ -107,7 +109,7 @@ app.get("/products", async (req, res) => {
   if (req.cookies.token === "" || req.cookies.token === undefined) {
     return res.send("You must login first !!");
   }
-  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+  jwt.verify(req.cookies.token, secretKey, async (err, decoded) => {
     if (err) {
       return res.send("Something went wrong !");
     }
@@ -126,7 +128,7 @@ app.get("/addproduct", (req, res) => {
 app.post("/addproduct", async (req, res) => {
   let { productimage, productname, price, bgcolor, panelcolor, textcolor } =
     req.body;
-  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+  jwt.verify(req.cookies.token, secretKey, async (err, decoded) => {
     if (err) {
       return res.send("Something went wrong !");
     }
@@ -149,7 +151,7 @@ app.post("/addproduct", async (req, res) => {
 });
 
 app.get("/cart/:productid", (req, res) => {
-  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+  jwt.verify(req.cookies.token, secretKey, async (err, decoded) => {
     if (err) {
       res.send("Something went wrong...");
     } else {
@@ -166,7 +168,7 @@ app.get("/cart/:productid", (req, res) => {
 });
 
 app.get("/increaseitem/:productid", (req, res) => {
-  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+  jwt.verify(req.cookies.token, secretKey, async (err, decoded) => {
     if (err) {
       res.send("Something went wrong...");
     } else {
@@ -179,7 +181,7 @@ app.get("/increaseitem/:productid", (req, res) => {
 });
 
 app.get("/reduceitem/:productid", (req, res) => {
-  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+  jwt.verify(req.cookies.token, secretKey, async (err, decoded) => {
     if (err) {
       res.send("Something went wrong...");
     } else {
@@ -195,7 +197,7 @@ app.get("/reduceitem/:productid", (req, res) => {
 });
 
 app.get("/placeorder/:productid", (req, res) => {
-  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+  jwt.verify(req.cookies.token, secretKey, async (err, decoded) => {
     if (err) {
       res.send("something went wrong");
     } else {
@@ -209,7 +211,7 @@ app.get("/placeorder/:productid", (req, res) => {
 });
 
 app.get("/delete/:productid", (req, res) => {
-  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+  jwt.verify(req.cookies.token, secretKey, async (err, decoded) => {
     if (err) {
       res.send("Something went wrong !!");
     } else {
@@ -229,7 +231,7 @@ app.get("/delete/:productid", (req, res) => {
 });
 
 app.get("/edit/:productid", (req, res) => {
-  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+  jwt.verify(req.cookies.token, secretKey, async (err, decoded) => {
     if (err) {
       res.send("Something went wrong !!");
     } else {
