@@ -203,7 +203,6 @@ app.get("/placeorder/:productid", (req, res) => {
       user.orders.push(...user.cart);
       user.cart = [];
       await user.save();
-      console.log(user);
       res.render("order.ejs");
     }
   });
