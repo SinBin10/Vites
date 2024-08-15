@@ -2,15 +2,11 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const usersRouter = require("./routes/usersRouter");
-const productsRouter = require("./routes/productsRouter");
-const ownersRouter = require("./routes/ownersRouter");
 const userModel = require("./models/user-model");
 const productModel = require("./models/product-model");
 const ownerModel = require("./models/owner-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { name } = require("ejs");
 require("dotenv").config();
 const secretKey = process.env.SECRET_KEY;
 
