@@ -141,11 +141,8 @@ app.post("/addproduct", async (req, res) => {
       textcolor,
     });
     let owner = await ownerModel.findOne({ _id: decoded.ownerid });
-    // console.log(owner);
     owner.products.push(newproduct._id);
     await owner.save();
-    // let productsarray = owner.products;
-    // console.log(productsarray);
     res.redirect("/products");
   });
 });
@@ -256,9 +253,4 @@ app.post("/edit/:productid", async (req, res) => {
   );
   res.redirect("/products");
 });
-//app.use("/users", usersRouter);
-//app.use("/products", productsRouter);
-//app.use("/owners", ownersRouter);
-
-//starting server
 app.listen(3000);

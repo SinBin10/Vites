@@ -29,16 +29,15 @@
         </a>
         <% productsarray.map((product)=>{ %>
         <div class="mr-10 mb-10">
-          <div class="h-60 p-4 flex items-center bg-[#fad1be]">
-            <img
-              src="https://res.cloudinary.com/dmk8epxvt/image/upload/v1723728545/image_80_bqqbht.png"
-              alt=""
-            />
+          <div class="h-60 p-4 flex items-center <%= product.bgcolor %>">
+            <img src="<%= product.image %>" alt="" />
           </div>
-          <div class="flex justify-between items-center px-4 py-2 bg-[#e59773]">
+          <div
+            class="flex justify-between items-center px-4 py-2 <%= product.panelcolor %>"
+          >
             <div>
-              <h1 class="text-[#6e4a3a]">Clinge Bag</h1>
-              <h2 class="text-[#6e4a3a]">Rs. 1200</h2>
+              <h1 class="<%= product.textcolor %>">Clinge Bag</h1>
+              <h2 class="<%= product.textcolor %>">Rs. 1200</h2>
             </div>
             <div class="flex flex-col">
               <a
@@ -58,16 +57,15 @@
         </div>
         <%})%><% } else { %> <% productsarray.map((product)=>{ %>
         <div class="mr-10 mb-10">
-          <div class="h-60 p-4 flex items-center bg-[#fad1be]">
-            <img
-              src="https://res.cloudinary.com/dmk8epxvt/image/upload/v1723728545/image_80_bqqbht.png"
-              alt=""
-            />
+          <div class="h-60 p-4 flex items-center <%= product.bgcolor %>">
+            <img src="<%= product.image %>" alt="" />
           </div>
-          <div class="flex justify-between items-center px-4 py-2 bg-[#e59773]">
+          <div
+            class="flex justify-between items-center px-4 py-2 <%= product.panelcolor %>"
+          >
             <div>
-              <h1 class="text-[#6e4a3a]">Clinge Bag</h1>
-              <h2 class="text-[#6e4a3a]">Rs. 1200</h2>
+              <h1 class="<%= product.textcolor %>">Clinge Bag</h1>
+              <h2 class="<%= product.textcolor %>">Rs. 1200</h2>
             </div>
             <a href="/cart/<%= product._id %>">
               <div class="bg-white px-2 text-2xl rounded-full">+</div>
@@ -75,20 +73,6 @@
           </div>
         </div>
         <%})%> <% } %>
-        <!-- <div class="mr-10 mb-10">
-          <div class="h-60 p-4 flex items-center bg-[#fad1be]">
-            <img src="/images/image 80.png" alt="" />
-          </div>
-          <div class="flex justify-between items-center px-4 py-2 bg-[#e59773]">
-            <div>
-              <h1 class="text-[#6e4a3a]">Clinge Bag</h1>
-              <h2 class="text-[#6e4a3a]">Rs. 1200</h2>
-            </div>
-            <a href="">
-              <div class="bg-white px-2 text-2xl rounded-full">+</div>
-            </a>
-          </div>
-        </div> -->
       </div>
     </div>
   </body>
