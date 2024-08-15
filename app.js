@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const db = require("./config/mongoose-connection");
 const usersRouter = require("./routes/usersRouter");
 const productsRouter = require("./routes/productsRouter");
 const ownersRouter = require("./routes/ownersRouter");
@@ -110,8 +109,8 @@ app.get("/products", async (req, res) => {
       user.cart = [];
       await user.save();
     }
-    let owner = await ownerModel.findOne({ _id: "66bb673ac37f8ea20dc68ea5" });
-    await owner.populate("products");
+    let owner = await ownerModel.findOne({ _id: "66be4e77b6dde749c38f9dc0" });
+    if (owner.products.length !== 0) await owner.populate("products");
     let productsarray = owner.products;
     res.render("products.ejs", { decoded, productsarray });
   });

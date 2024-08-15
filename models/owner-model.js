@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const productModel = require("./product-model");
 
+mongoose.connect(
+  "mongodb+srv://binay:binay@vitesdb.mfe5f.mongodb.net/?retryWrites=true&w=majority&appName=vitesdb"
+);
+
 const ownerSchema = mongoose.Schema({
   fullname: {
     type: String,
