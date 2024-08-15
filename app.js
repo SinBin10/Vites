@@ -105,6 +105,11 @@ app.get("/products", async (req, res) => {
     if (err) {
       return res.send("Something went wrong !");
     }
+    let user = await userModel.findOne({ _id: decoded.userid });
+    if (user !== null) {
+      user.cart = [];
+      await user.save();
+    }
     let owner = await ownerModel.findOne({ _id: "66bb673ac37f8ea20dc68ea5" });
     await owner.populate("products");
     let productsarray = owner.products;
@@ -243,5 +248,13 @@ app.post("/edit/:productid", async (req, res) => {
     { new: true }
   );
   res.redirect("/products");
+});
+
+app.get("/cart", (req, res) => {
+  res.send("Your cart is empty... Please add items");
+});
+
+app.get("/account", (req, res) => {
+  res.send("This page is currenlty under maintenance...");
 });
 app.listen(3000);
