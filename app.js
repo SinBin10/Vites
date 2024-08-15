@@ -58,27 +58,39 @@ app.post("/create", (req, res) => {
 });
 
 app.post("/login", async (req, res) => {
-  let { email } = req.body;
+  let { email, password } = req.body;
   let owner = await ownerModel.findOne({ email });
   if (owner === null) {
     let user = await userModel.findOne({ email });
     if (user === null) {
       res.send("Account not found !! Please create an account first");
     } else {
-      let token = jwt.sign(
-        { userid: user._id, email: user.email, isadmin: false },
-        "shhhhhhh"
-      );
-      res.cookie("token", token);
-      res.redirect("/products");
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result === false) {
+          res.send("Something went wrong !!");
+        } else {
+          let token = jwt.sign(
+            { userid: user._id, email: user.email, isadmin: false },
+            "shhhhhhh"
+          );
+          res.cookie("token", token);
+          res.redirect("/products");
+        }
+      });
     }
   } else {
-    let token = jwt.sign(
-      { ownerid: owner._id, email: owner.email, isadmin: true },
-      "shhhhhhh"
-    );
-    res.cookie("token", token);
-    res.redirect("/products");
+    bcrypt.compare(password, owner.password, (err, result) => {
+      if (result === false) {
+        res.send("Something went wrong !!");
+      } else {
+        let token = jwt.sign(
+          { ownerid: owner._id, email: owner.email, isadmin: true },
+          "shhhhhhh"
+        );
+        res.cookie("token", token);
+        res.redirect("/products");
+      }
+    });
   }
 });
 
