@@ -11,6 +11,7 @@ const productModel = require("./models/product-model");
 const ownerModel = require("./models/owner-model");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { name } = require("ejs");
 
 //middlewares
 app.set("view engine", "ejs");
@@ -220,12 +221,40 @@ app.get("/delete/:productid", (req, res) => {
       );
       owner.products.splice(productIndex, 1);
       await owner.save();
-      console.log(owner.products);
+      await productModel.findOneAndDelete({
+        _id: req.params.productid,
+      });
       res.redirect("/products");
     }
   });
 });
 
+app.get("/edit/:productid", (req, res) => {
+  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+    if (err) {
+      res.send("Something went wrong !!");
+    } else {
+      let product = await productModel.findOne({ _id: req.params.productid });
+      res.render("edit.ejs", { product });
+    }
+  });
+});
+
+app.post("/edit/:productid", async (req, res) => {
+  await productModel.findOneAndUpdate(
+    { _id: req.params.productid },
+    {
+      image: req.body.productimage,
+      name: req.body.productname,
+      price: req.body.price,
+      bgcolor: req.body.bgcolor,
+      panelcolor: req.body.panelcolor,
+      textcolor: req.body.textcolor,
+    },
+    { new: true }
+  );
+  res.redirect("/products");
+});
 //app.use("/users", usersRouter);
 //app.use("/products", productsRouter);
 //app.use("/owners", ownersRouter);
