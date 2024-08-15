@@ -19,16 +19,22 @@
     </navbar>
     <div class="h-full flex mx-10 my-6">
       <div class="w-[43rem] h-[23.5rem]">
-        <div class="h-full flex justify-center items-center bg-[#fad1be]">
+        <div
+          class="h-full flex justify-center items-center <%= userproduct[0].bgcolor %>"
+        >
           <img
             class="h-[16.5rem]"
-            src="/images/image 80.png"
+            src="<%= userproduct[0].image %>"
             alt="clinge bag image"
           />
         </div>
-        <div class="justify-between items-center px-4 py-2 bg-[#e59773]">
+        <div
+          class="justify-between items-center px-4 py-2 <%= userproduct[0].panelcolor %>"
+        >
           <div class="flex justify-between py-2">
-            <h1 class="text-[#6e4a3a] text-2xl">Clinge Bag</h1>
+            <h1 class="<%= userproduct[0].textcolor %> text-2xl">
+              <%= userproduct[0].name %>
+            </h1>
             <div class="flex items-center">
               <a class="mr-2" href="/increaseitem/<%= userproduct[0]._id %>">
                 <div class="bg-white px-2 rounded-full">+</div>
@@ -41,7 +47,7 @@
           </div>
           <div class="flex justify-between items-center">
             <h2>Net Total</h2>
-            <h2 class="mr-10">Rs. 1200</h2>
+            <h2 class="mr-10">Rs. <%= userproduct[0].price %></h2>
           </div>
         </div>
       </div>
@@ -49,7 +55,9 @@
         <div class="ml-4 mb-5">Price Breakdown</div>
         <div class="flex ml-8 mb-4 justify-start mr-8">
           <div>Total MRP</div>
-          <div class="ml-36">Rs. <%= (userproduct.length)*1920 %></div>
+          <div class="ml-36">
+            Rs. <%=(userproduct.length)*userproduct[0].price %>
+          </div>
         </div>
         <div class="flex ml-8 mb-4 justify-start mr-8">
           <div>Discount on MRP</div>
@@ -66,7 +74,7 @@
         <div class="flex ml-5 my-4 justify-start mr-8">
           <div>Total Amount</div>
           <div class="ml-32 text-green-600">
-            Rs. <%= ((userproduct.length)*1920)+20 %>
+            Rs. <%=((userproduct.length)*userproduct[0].price)+20%>
           </div>
         </div>
         <a
