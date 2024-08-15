@@ -40,11 +40,16 @@
             <div class="flex flex-col">
               <a
                 class="bg-white px-2 border-b border-black text-blue-700"
-                href=""
+                href="/edit/<%= product._id %>"
               >
                 Edit
               </a>
-              <a class="bg-white px-2 text-red-700" href=""> Delete </a>
+              <a
+                class="bg-white px-2 text-red-700"
+                href="/delete/<%= product._id %>"
+              >
+                Delete
+              </a>
             </div>
           </div>
         </div>

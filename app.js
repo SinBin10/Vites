@@ -196,6 +196,24 @@ app.get("/placeorder/:productid", (req, res) => {
   });
 });
 
+app.get("/delete/:productid", (req, res) => {
+  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+    if (err) {
+      res.send("Something went wrong !!");
+    } else {
+      let owner = await ownerModel.findOne({ _id: decoded.ownerid });
+      await owner.populate("products");
+      const productIndex = owner.products.findIndex(
+        (product) => product._id === req.params.productid
+      );
+      owner.products.splice(productIndex, 1);
+      await owner.save();
+      console.log(owner.products);
+      res.redirect("/products");
+    }
+  });
+});
+
 //app.use("/users", usersRouter);
 //app.use("/products", productsRouter);
 //app.use("/owners", ownersRouter);
