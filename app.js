@@ -62,19 +62,24 @@ app.post("/login", async (req, res) => {
   let owner = await ownerModel.findOne({ email });
   if (owner === null) {
     let user = await userModel.findOne({ email });
-    let token = jwt.sign(
-      { userid: user._id, email: user.email, isadmin: false },
-      "shhhhhhh"
-    );
-    res.cookie("token", token);
+    if (user === null) {
+      res.send("Account not found !! Please create an account first");
+    } else {
+      let token = jwt.sign(
+        { userid: user._id, email: user.email, isadmin: false },
+        "shhhhhhh"
+      );
+      res.cookie("token", token);
+      res.redirect("/products");
+    }
   } else {
     let token = jwt.sign(
       { ownerid: owner._id, email: owner.email, isadmin: true },
       "shhhhhhh"
     );
     res.cookie("token", token);
+    res.redirect("/products");
   }
-  res.redirect("/products");
 });
 
 app.get("/products", async (req, res) => {
@@ -136,10 +141,42 @@ app.get("/cart/:productid", (req, res) => {
       res.send("Something went wrong...");
     } else {
       let user = await userModel.findOne({ _id: decoded.userid });
-      user.cart.push(req.params.productid);
-      await user.save;
+      if (user.cart.length === 0) {
+        user.cart.push(req.params.productid);
+        await user.save();
+      }
       await user.populate("cart");
-      res.render("cart.ejs", { user });
+      let userproduct = user.cart;
+      res.render("cart.ejs", { userproduct });
+    }
+  });
+});
+
+app.get("/increaseitem/:productid", (req, res) => {
+  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+    if (err) {
+      res.send("Something went wrong...");
+    } else {
+      let user = await userModel.findOne({ _id: decoded.userid });
+      user.cart.push(req.params.productid);
+      await user.save();
+      res.redirect(`/cart/${req.params.productid}`);
+    }
+  });
+});
+
+app.get("/reduceitem/:productid", (req, res) => {
+  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+    if (err) {
+      res.send("Something went wrong...");
+    } else {
+      let user = await userModel.findOne({ _id: decoded.userid });
+      if (user.cart.length === 1) return res.redirect("/products");
+      else {
+        user.cart.pop();
+        await user.save();
+        res.redirect(`/cart/${req.params.productid}`);
+      }
     }
   });
 });

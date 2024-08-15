@@ -30,11 +30,11 @@
           <div class="flex justify-between py-2">
             <h1 class="text-[#6e4a3a] text-2xl">Clinge Bag</h1>
             <div class="flex items-center">
-              <a class="mr-2" href="/increaseitem">
+              <a class="mr-2" href="/increaseitem/<%= userproduct[0]._id %>">
                 <div class="bg-white px-2 rounded-full">+</div>
               </a>
-              <div class="bg-white px-2"><%= user.cart.length %></div>
-              <a class="ml-2" href="/reduceitem">
+              <div class="bg-white px-2"><%= userproduct.length %></div>
+              <a class="ml-2" href="/reduceitem/<%= userproduct[0]._id %>">
                 <div class="bg-white px-[10px] rounded-full">-</div>
               </a>
             </div>
@@ -49,7 +49,7 @@
         <div class="ml-4 mb-5">Price Breakdown</div>
         <div class="flex ml-8 mb-4 justify-start mr-8">
           <div>Total MRP</div>
-          <div class="ml-36">Rs. 1920</div>
+          <div class="ml-36">Rs. <%= (userproduct.length)*1920 %></div>
         </div>
         <div class="flex ml-8 mb-4 justify-start mr-8">
           <div>Discount on MRP</div>
@@ -65,7 +65,9 @@
         </div>
         <div class="flex ml-5 my-4 justify-start mr-8">
           <div>Total Amount</div>
-          <div class="ml-32 text-green-600">Rs. 1940</div>
+          <div class="ml-32 text-green-600">
+            Rs. <%= ((userproduct.length)*1920)+20 %>
+          </div>
         </div>
         <a
           class="ml-5 px-4 py-2 rounded-lg bg-black text-white"
