@@ -181,6 +181,21 @@ app.get("/reduceitem/:productid", (req, res) => {
   });
 });
 
+app.get("/placeorder/:productid", (req, res) => {
+  jwt.verify(req.cookies.token, "shhhhhhh", async (err, decoded) => {
+    if (err) {
+      res.send("something went wrong");
+    } else {
+      let user = await userModel.findOne({ _id: decoded.userid });
+      user.orders.push(...user.cart);
+      user.cart = [];
+      await user.save();
+      console.log(user);
+      res.render("order.ejs");
+    }
+  });
+});
+
 //app.use("/users", usersRouter);
 //app.use("/products", productsRouter);
 //app.use("/owners", ownersRouter);
