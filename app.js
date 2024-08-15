@@ -98,14 +98,6 @@ app.post("/login", async (req, res) => {
 });
 
 app.get("/products", async (req, res) => {
-  // let product = await productModel.create({
-  //   image: "/images/image 80.png",
-  //   name: "Clinge Bag",
-  //   price: 1200,
-  //   bgcolor: "bg-[#fad1be]",
-  //   panelcolor: "bg-[#e59773]",
-  //   textcolor: "text-[#6e4a3a]",
-  // });
   if (req.cookies.token === "" || req.cookies.token === undefined) {
     return res.send("You must login first !!");
   }
@@ -115,7 +107,6 @@ app.get("/products", async (req, res) => {
     }
     let owner = await ownerModel.findOne({ _id: "66bb673ac37f8ea20dc68ea5" });
     await owner.populate("products");
-    // await owner.save();
     let productsarray = owner.products;
     res.render("products.ejs", { decoded, productsarray });
   });
